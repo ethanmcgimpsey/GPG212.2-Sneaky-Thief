@@ -32,6 +32,11 @@ namespace MainScene
                     enemyNavMesh.isChasingPlayer = false;
                 }
             }
+            if (Vector3.Distance(playerTransform.position, transform.position)< minCaptureDistance)
+            {
+                GameManager.Instance.gameOver.SetActive(true);
+                Time.timeScale = 0f;
+            }
         }
     }
 }

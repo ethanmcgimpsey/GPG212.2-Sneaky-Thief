@@ -12,8 +12,11 @@ public class GameManager : MonoBehaviour
     public TextMeshProUGUI scoreText;
     private int score;
 
+    public GameObject gameOver;
+    public GameObject winScreen;
     private void Awake()
     {
+        Time.timeScale = 1f;
         if (Instance == null)
         {
             Instance = this;
@@ -24,10 +27,16 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Time.timeScale = 1f;
+    }
+
     public void ResetLevel()
     {
         Scene activeScene = SceneManager.GetActiveScene();
         SceneManager.LoadScene(activeScene.buildIndex);
+        Time.timeScale = 1f;
     }
 
     public void NextScene()
@@ -41,5 +50,11 @@ public class GameManager : MonoBehaviour
         score += points;
         scoreText.text = "Score: " + score.ToString();
         Debug.Log("Points added: " + points);
+
+        if(score >= 3)
+        {
+            winScreen.SetActive(true);
+            Time.timeScale = 0f;
+        }
     }
 }
